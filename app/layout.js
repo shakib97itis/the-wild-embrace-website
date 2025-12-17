@@ -1,5 +1,6 @@
-import Logo from './components/Logo';
-import Navigation from './components/Navigation';
+import '@/app/_styles/globals.css';
+import Logo from '@/app/_components/Logo';
+import Navigation from '@/app/_components/Navigation';
 
 export const metadata = {
   title: 'The Wild Embrace',
