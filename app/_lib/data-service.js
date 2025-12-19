@@ -1,10 +1,11 @@
-import { eachDayOfInterval } from 'date-fns';
+import {eachDayOfInterval} from 'date-fns';
+import {supabase} from '@/app/_lib/supabase';
 
 /////////////
 // GET
 
 export async function getCabin(id) {
-  const { data, error } = await supabase
+  const {data, error} = await supabase
     .from('cabins')
     .select('*')
     .eq('id', id)
@@ -21,7 +22,7 @@ export async function getCabin(id) {
 }
 
 export async function getCabinPrice(id) {
-  const { data, error } = await supabase
+  const {data, error} = await supabase
     .from('cabins')
     .select('regularPrice, discount')
     .eq('id', id)
@@ -35,7 +36,7 @@ export async function getCabinPrice(id) {
 }
 
 export const getCabins = async function () {
-  const { data, error } = await supabase
+  const {data, error} = await supabase
     .from('cabins')
     .select('id, name, maxCapacity, regularPrice, discount, image')
     .order('name');
@@ -50,7 +51,7 @@ export const getCabins = async function () {
 
 // Guests are uniquely identified by their email address
 export async function getGuest(email) {
-  const { data, error } = await supabase
+  const {data, error} = await supabase
     .from('guests')
     .select('*')
     .eq('email', email)
@@ -61,7 +62,7 @@ export async function getGuest(email) {
 }
 
 export async function getBooking(id) {
-  const { data, error, count } = await supabase
+  const {data, error, count} = await supabase
     .from('bookings')
     .select('*')
     .eq('id', id)
@@ -76,7 +77,7 @@ export async function getBooking(id) {
 }
 
 export async function getBookings(guestId) {
-  const { data, error, count } = await supabase
+  const {data, error, count} = await supabase
     .from('bookings')
     // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
     .select(
@@ -99,7 +100,7 @@ export async function getBookedDatesByCabinId(cabinId) {
   today = today.toISOString();
 
   // Getting all bookings
-  const { data, error } = await supabase
+  const {data, error} = await supabase
     .from('bookings')
     .select('*')
     .eq('cabinId', cabinId)
@@ -124,7 +125,7 @@ export async function getBookedDatesByCabinId(cabinId) {
 }
 
 export async function getSettings() {
-  const { data, error } = await supabase.from('settings').select('*').single();
+  const {data, error} = await supabase.from('settings').select('*').single();
 
   if (error) {
     console.error(error);
@@ -150,7 +151,7 @@ export async function getCountries() {
 // CREATE
 
 export async function createGuest(newGuest) {
-  const { data, error } = await supabase.from('guests').insert([newGuest]);
+  const {data, error} = await supabase.from('guests').insert([newGuest]);
 
   if (error) {
     console.error(error);
@@ -161,7 +162,7 @@ export async function createGuest(newGuest) {
 }
 
 export async function createBooking(newBooking) {
-  const { data, error } = await supabase
+  const {data, error} = await supabase
     .from('bookings')
     .insert([newBooking])
     // So that the newly created object gets returned!
@@ -181,7 +182,7 @@ export async function createBooking(newBooking) {
 
 // The updatedFields is an object which should ONLY contain the updated data
 export async function updateGuest(id, updatedFields) {
-  const { data, error } = await supabase
+  const {data, error} = await supabase
     .from('guests')
     .update(updatedFields)
     .eq('id', id)
@@ -196,7 +197,7 @@ export async function updateGuest(id, updatedFields) {
 }
 
 export async function updateBooking(id, updatedFields) {
-  const { data, error } = await supabase
+  const {data, error} = await supabase
     .from('bookings')
     .update(updatedFields)
     .eq('id', id)
@@ -214,7 +215,7 @@ export async function updateBooking(id, updatedFields) {
 // DELETE
 
 export async function deleteBooking(id) {
-  const { data, error } = await supabase.from('bookings').delete().eq('id', id);
+  const {data, error} = await supabase.from('bookings').delete().eq('id', id);
 
   if (error) {
     console.error(error);
