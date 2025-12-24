@@ -2,6 +2,9 @@ import {Suspense} from 'react';
 import CabinList from '@/app/_components/CabinList';
 import Spinner from '@/app/_components/Spinner';
 
+// Revalidate this page every hour
+export const revalidate = 3600;
+
 function Page() {
   return (
     <div>
