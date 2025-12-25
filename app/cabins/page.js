@@ -5,7 +5,9 @@ import Spinner from '@/app/_components/Spinner';
 // Revalidate this page every hour
 export const revalidate = 3600;
 
-function Page() {
+function Page({searchParams}) {
+  const filter = searchParams.capacity || 'all';
+
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -20,7 +22,7 @@ function Page() {
         Welcome to paradise.
       </p>
       <Suspense fallback={<Spinner />}>
-        <CabinList />
+        <CabinList filter={filter} />
       </Suspense>
     </div>
   );
