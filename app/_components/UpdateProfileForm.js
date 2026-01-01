@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import logoImg from '@/public/logo.png';
 
 function UpdateProfileForm({children}) {
   const countryFlag = 'pt.jpg';
@@ -26,7 +27,9 @@ function UpdateProfileForm({children}) {
         <div className="flex items-center justify-between">
           <label htmlFor="nationality">Where are you from?</label>
           <Image
-            src={countryFlag}
+            src={logoImg}
+            width={20}
+            height={20}
             alt="Country flag"
             className="h-5 rounded-sm"
           />
