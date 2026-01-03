@@ -1,3 +1,4 @@
+import {ca} from 'date-fns/locale';
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
 
@@ -8,6 +9,11 @@ const authConfig = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    authorized: ({auth, req}) => {
+      return !!auth?.user;
+    },
+  },
 };
 
 export const {
