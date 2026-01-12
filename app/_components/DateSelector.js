@@ -58,7 +58,7 @@ function DateSelector({settings, bookedDates, cabin}) {
         captionLayout="dropdown"
         numberOfMonths={1}
         selected={displayRange}
-        onSelect={(range) => setRange(range)}
+        onSelect={setRange}
       />
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">

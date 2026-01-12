@@ -1,8 +1,14 @@
 'use server';
 
 import {revalidatePath} from 'next/cache';
-import {deleteBooking, getBookings, updateBooking} from './data-service';
+import {
+  createBooking,
+  deleteBooking,
+  getBookings,
+  updateBooking,
+} from './data-service';
 import {redirect} from 'next/navigation';
+import {de} from 'date-fns/locale';
 
 const {signIn, signOut, auth} = require('./auth');
 
@@ -46,6 +52,25 @@ export async function updateReservationAction(formData) {
   // redirect
   revalidatePath(`/account/reservations/edit/${bookingId}`);
   redirect('/account/reservations');
+}
+
+export async function createReservationAction(reservationData, formData) {
+  // console.log(formData);
+  // console.log(reservationData);
+
+  const session = await auth();
+  if (!session) throw new Error('Unauthorized');
+
+  const newBooking = {
+    ...reservationData,
+    guestId: session.user.id,
+    numGuests: Number(formData.get('numGuests')),
+    observations: formData.get('observations'),
+  };
+
+  const createdBooking = await createBooking(newBooking);
+  revalidatePath(`/cabins/${createdBooking.cabinId}`);
+  redirect(`/cabins/thanks`);
 }
 
 export async function deleteReservationAction(bookingId) {
