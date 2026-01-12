@@ -11,6 +11,10 @@ function Cabin({cabin}) {
       <div className="relative scale-[1.15] -translate-x-3">
         <Image
           fill
+          placeholder="blur"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          quality={80}
+          blurDataURL={image}
           className="object-cover"
           src={image}
           alt={`Cabin ${name}`}
