@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import logoImg from '@/public/logo.png';
+import logoImg from '@/public/the_wild_embrace_logo_gold.png';
 
 function Logo() {
   return (
